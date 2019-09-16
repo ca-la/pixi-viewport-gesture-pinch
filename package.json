@@ -1,0 +1,22 @@
+{
+  "name": "pixi-viewport-gesture-pinch",
+  "version": "1.0.0",
+  "description": "A pixi-viewport plugin to support pinch-to-zoom with the nonstandard GestureEvent API",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ca-la/pixi-viewport-gesture-pinch.git"
+  },
+  "author": "CALA <devops@ca.la>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ca-la/pixi-viewport-gesture-pinch/issues"
+  },
+  "homepage": "https://github.com/ca-la/pixi-viewport-gesture-pinch#readme",
+  "peerDependencies": {
+    "pixi-viewport": "4.*"
+  }
+}
