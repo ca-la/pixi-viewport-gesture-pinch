@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "lib": ["es2017", "dom", "dom.iterable"],
     "declaration": true,
     "jsx": "react",
     "outDir": "./dist/",
     "strict": true,
+    "strictNullChecks": true,
     "importHelpers": true,
     "pretty": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "esModuleInterop": true
   },

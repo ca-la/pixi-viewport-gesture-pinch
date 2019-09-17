@@ -4,3 +4,4 @@ set -e
 
 rm -r dist || true
 npx tsc
+echo 'Built.'

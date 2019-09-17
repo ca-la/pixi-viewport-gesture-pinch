@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o noglob
+
+# Run TypeScript compiler in watch mode
+# Usage: bin/dev
+
+main() {
+  npx nodemon -w src -e ts --exec "bin/build"
+}
+
+main "$@"
