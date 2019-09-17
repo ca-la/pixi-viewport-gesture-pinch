@@ -36,8 +36,10 @@ main() {
     exit 1
   fi
 
-  bin/test
   preauth_pgp_signature
+
+  bin/test
+  bin/build
 
   git pull --ff-only origin master
 

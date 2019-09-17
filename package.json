@@ -8,8 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "bin/test",
-    "prepublishOnly": "bin/test && bin/build"
+    "test": "bin/test"
   },
   "repository": {
     "type": "git",
