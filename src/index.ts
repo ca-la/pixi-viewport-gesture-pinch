@@ -1,5 +1,5 @@
 import { Viewport } from 'pixi-viewport';
-import { Point } from 'pixi.js';
+import { Point, interaction } from 'pixi.js';
 
 import BasePlugin from './base-plugin';
 import GestureEvent from './gesture-event';
@@ -36,12 +36,7 @@ class PinchPlugin extends BasePlugin {
     this.listenerNode.removeEventListener('gestureend' as any, this.onGestureEnd as any);
   }
 
-  public move(event: UIEvent): void {
-    this.currentPointerPosition = (this.viewport as any).input.getPointerPosition(event);
-  }
-
   private onGestureStart = (event: GestureEvent): void => {
-    console.log('start', event);
     this.initialScale = this.viewport.scale.x;
     this.initialPointerPosition = (this.viewport as any).input.getPointerPosition(event);
   }
@@ -51,7 +46,6 @@ class PinchPlugin extends BasePlugin {
   }
 
   private onGestureChange = (event: GestureEvent) => {
-    console.log('change', event);
     this.viewport.scale.x = event.scale * this.initialScale;
     this.viewport.scale.y = event.scale * this.initialScale;
     this.viewport.emit('zoomed', { viewport: this.viewport, type: 'pinch' });
@@ -61,6 +55,8 @@ class PinchPlugin extends BasePlugin {
     if (!this.initialPointerPosition) {
       throw new Error('Missing initial pointer position');
     }
+
+    console.log({ x: pointerPosition.x, y: pointerPosition.y });
 
     this.viewport.x += pointerPosition.x - this.initialPointerPosition.x;
     this.viewport.y += pointerPosition.y - this.initialPointerPosition.y;

@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/ca-la/pixi-viewport-gesture-pinch#readme",
   "peerDependencies": {
-    "pixi-viewport": "4.*"
+    "pixi-viewport": "4.*",
+    "pixi.js": "5.*"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
