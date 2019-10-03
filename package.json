@@ -1,6 +1,6 @@
 {
   "name": "pixi-viewport-gesture-pinch",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A pixi-viewport plugin to support pinch-to-zoom with the nonstandard GestureEvent API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
