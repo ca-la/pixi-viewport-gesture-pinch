@@ -1,5 +1,5 @@
 import { Viewport } from 'pixi-viewport';
-import { Point, interaction } from 'pixi.js';
+import { Point } from 'pixi.js';
 
 import BasePlugin from './base-plugin';
 import GestureEvent from './gesture-event';
@@ -13,8 +13,7 @@ class PinchPlugin extends BasePlugin {
   viewport: Viewport;
   listenerNode: HTMLElement;
   initialScale: number;
-  initialPointerPosition?: Point;
-  currentPointerPosition?: Point;
+  initialLocalPosition?: Point;
 
   constructor(options: Options) {
     super();
@@ -38,29 +37,39 @@ class PinchPlugin extends BasePlugin {
 
   private onGestureStart = (event: GestureEvent): void => {
     this.initialScale = this.viewport.scale.x;
-    this.initialPointerPosition = (this.viewport as any).input.getPointerPosition(event);
+    const initialGlobalPosition: PIXI.Point = (this.viewport as any).input.getPointerPosition(event);
+    this.initialLocalPosition = this.viewport.toLocal(initialGlobalPosition);
   }
 
-  private onGestureEnd = (event: GestureEvent): void => {
-    console.log('end', event);
+  private onGestureEnd = (): void => {
+    this.viewport.emit('zoomed', { viewport: this.viewport, type: 'pinch' });
   }
 
   private onGestureChange = (event: GestureEvent) => {
-    this.viewport.scale.x = event.scale * this.initialScale;
-    this.viewport.scale.y = event.scale * this.initialScale;
-    this.viewport.emit('zoomed', { viewport: this.viewport, type: 'pinch' });
-
-    const pointerPosition = (this.viewport as any).input.getPointerPosition(event);
-
-    if (!this.initialPointerPosition) {
-      throw new Error('Missing initial pointer position');
+    if (!this.initialLocalPosition) {
+      throw new Error('Missing initial position');
     }
 
-    console.log({ x: pointerPosition.x, y: pointerPosition.y });
+    const newScale = event.scale * this.initialScale;
+    this.viewport.setZoom(newScale);
 
-    this.viewport.x += pointerPosition.x - this.initialPointerPosition.x;
-    this.viewport.y += pointerPosition.y - this.initialPointerPosition.y;
+    const globalPosition = (this.viewport as any).input.getPointerPosition(event);
+    const localPosition = this.viewport.toLocal(globalPosition);
+
+    const deltaX = localPosition.x - this.initialLocalPosition.x;
+    const deltaY = localPosition.y - this.initialLocalPosition.y;
+
+    this.moveRelative(deltaX, deltaY);
     this.viewport.emit('moved', { viewport: this.viewport, type: 'pinch' })
+  }
+
+  private moveRelative(deltaX: number, deltaY: number) {
+    this.viewport.moveCenter(
+      new Point(
+        this.viewport.center.x - deltaX,
+        this.viewport.center.y - deltaY
+      )
+    );
   }
 }
 

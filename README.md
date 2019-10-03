@@ -6,6 +6,19 @@ pinch-to-zoom behavior with the non-standard
 API. Though this isn't on a standards track, it's necessary to support pinch to
 zoom behavior on certain browsers (Safari).
 
+## Usage
+
+```javascript
+import { Viewport } from 'pixi-viewport';
+import GesturePinch from 'pixi-viewport-gesture-pinch';
+
+const viewport = new Viewport(options);
+viewport.pinch();
+
+const gesturePinch = new GesturePinch({ viewport });
+viewport.plugins.add('gesture-pinch', gesturePinch);
+```
+
 ## Notes
 
 If you're developing locally, you may want to `npm link` this module into your
