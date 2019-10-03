@@ -4,4 +4,3 @@ export default interface GestureEvent extends UIEvent {
   clientX: number;
   clientY: number;
 }
-
