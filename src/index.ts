@@ -20,43 +20,25 @@ class PinchPlugin extends BasePlugin {
     this.viewport = options.viewport;
     this.listenerNode = options.listenerNode || document.body;
 
-    // A bit of silly type coercion here to override TypeScript, which is smart
-    // enough to know that both the event names and objects are totally invalid.
-    this.listenerNode.addEventListener(
-      'gesturestart' as any,
-      this.onGestureStart as any
-    );
-    this.listenerNode.addEventListener(
-      'gesturechange' as any,
-      this.onGestureChange as any
-    );
-    this.listenerNode.addEventListener(
-      'gestureend' as any,
-      this.onGestureEnd as any
-    );
+    this.listenerNode.addEventListener('gesturestart', this.onGestureStart);
+    this.listenerNode.addEventListener('gesturechange', this.onGestureChange);
+    this.listenerNode.addEventListener('gestureend', this.onGestureEnd);
 
-    this.initialScale = 1;
+    this.initialScale = this.viewport.scale.x;
   }
 
   public destroy(): void {
+    this.listenerNode.removeEventListener('gesturestart', this.onGestureStart);
     this.listenerNode.removeEventListener(
-      'gesturestart' as any,
-      this.onGestureStart as any
+      'gesturechange',
+      this.onGestureChange
     );
-    this.listenerNode.removeEventListener(
-      'gesturechange' as any,
-      this.onGestureChange as any
-    );
-    this.listenerNode.removeEventListener(
-      'gestureend' as any,
-      this.onGestureEnd as any
-    );
+    this.listenerNode.removeEventListener('gestureend', this.onGestureEnd);
   }
 
   private onGestureStart = (event: GestureEvent): void => {
     this.initialScale = this.viewport.scale.x;
-    const initialGlobalPosition: PIXI.Point = (this
-      .viewport as any).input.getPointerPosition(event);
+    const initialGlobalPosition = this.viewport.input.getPointerPosition(event);
     this.initialLocalPosition = this.viewport.toLocal(initialGlobalPosition);
   };
 
