@@ -1,4 +1,3 @@
-import './global';
 import { Viewport } from 'pixi-viewport';
 import { Point } from 'pixi.js';
 
