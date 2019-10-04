@@ -35,7 +35,7 @@ class PinchPlugin extends BasePlugin {
       this.onGestureEnd as any
     );
 
-    this.initialScale = 1;
+    this.initialScale = this.viewport.scale.x;
   }
 
   public destroy(): void {
