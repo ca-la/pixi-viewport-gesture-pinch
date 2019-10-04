@@ -32,7 +32,6 @@ declare module 'pixi-viewport' {
   interface Viewport {
     input: {
       getPointerPosition(event: GestureEvent): PIXI.Point;
-    }
+    };
   }
 }
-
