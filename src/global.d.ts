@@ -1,5 +1,5 @@
-import * as PIXI from 'pixi.js';
-import GestureEvent from './gesture-event';
+import * as PIXI from "pixi.js";
+import GestureEvent from "./gesture-event";
 
 declare global {
   interface GestureEventMap extends HTMLElementEventMap {
@@ -28,7 +28,7 @@ declare global {
   }
 }
 
-declare module 'pixi-viewport' {
+declare module "pixi-viewport" {
   interface Viewport {
     input: {
       getPointerPosition(event: GestureEvent): PIXI.Point;

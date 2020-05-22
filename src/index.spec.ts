@@ -1,5 +1,5 @@
-describe('example test', () => {
-  it('tests', () => {
+describe("example test", () => {
+  it("tests", () => {
     expect(true).toEqual(true);
   });
 });
