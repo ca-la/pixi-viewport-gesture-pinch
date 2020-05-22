@@ -1,8 +1,8 @@
-import { Viewport } from 'pixi-viewport';
-import { Point } from 'pixi.js';
+import { Viewport } from "pixi-viewport";
+import { Point } from "pixi.js";
 
-import BasePlugin from './base-plugin';
-import GestureEvent from './gesture-event';
+import BasePlugin from "./base-plugin";
+import GestureEvent from "./gesture-event";
 
 interface Options {
   viewport: Viewport;
@@ -20,20 +20,20 @@ class PinchPlugin extends BasePlugin {
     this.viewport = options.viewport;
     this.listenerNode = options.listenerNode || document.body;
 
-    this.listenerNode.addEventListener('gesturestart', this.onGestureStart);
-    this.listenerNode.addEventListener('gesturechange', this.onGestureChange);
-    this.listenerNode.addEventListener('gestureend', this.onGestureEnd);
+    this.listenerNode.addEventListener("gesturestart", this.onGestureStart);
+    this.listenerNode.addEventListener("gesturechange", this.onGestureChange);
+    this.listenerNode.addEventListener("gestureend", this.onGestureEnd);
 
     this.initialScale = this.viewport.scale.x;
   }
 
   public destroy(): void {
-    this.listenerNode.removeEventListener('gesturestart', this.onGestureStart);
+    this.listenerNode.removeEventListener("gesturestart", this.onGestureStart);
     this.listenerNode.removeEventListener(
-      'gesturechange',
+      "gesturechange",
       this.onGestureChange
     );
-    this.listenerNode.removeEventListener('gestureend', this.onGestureEnd);
+    this.listenerNode.removeEventListener("gestureend", this.onGestureEnd);
   }
 
   private onGestureStart = (event: GestureEvent): void => {
@@ -43,12 +43,12 @@ class PinchPlugin extends BasePlugin {
   };
 
   private onGestureEnd = (): void => {
-    this.viewport.emit('zoomed', { viewport: this.viewport, type: 'pinch' });
+    this.viewport.emit("zoomed", { viewport: this.viewport, type: "pinch" });
   };
 
   private onGestureChange = (event: GestureEvent) => {
     if (!this.initialLocalPosition) {
-      throw new Error('Missing initial position');
+      throw new Error("Missing initial position");
     }
 
     const newScale = event.scale * this.initialScale;
@@ -63,7 +63,7 @@ class PinchPlugin extends BasePlugin {
     const deltaY = localPosition.y - this.initialLocalPosition.y;
 
     this.moveRelative(deltaX, deltaY);
-    this.viewport.emit('moved', { viewport: this.viewport, type: 'pinch' });
+    this.viewport.emit("moved", { viewport: this.viewport, type: "pinch" });
   };
 
   private moveRelative(deltaX: number, deltaY: number) {

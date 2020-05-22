@@ -1,4 +1,4 @@
-import { interaction } from 'pixi.js';
+import { interaction } from "pixi.js";
 
 export default abstract class BasePlugin {
   public destroy(): void {}
